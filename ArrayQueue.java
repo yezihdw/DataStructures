@@ -13,10 +13,21 @@ public classs ArrayQueue {
      n = capacity;
    }
 
-   // 入队
+   // 入队 ，将 item 放入对尾
    public boolean enqueue(String item) {
      // 如果 tail == n 表示对列已经满了
      if (tail == n) {
+       // tail == n && head == 0, 表示整个队列都占满了
+       if (head == 0) {
+         return false;
+       }
+       // 数据搬移
+       for (int i = head; i < tail; i++) {
+         items[i-head] = items[i];
+       }
+       // 搬移完之后重新更新 head 和 tail
+       tail -= head;
+       head = 0;
        return false;
      }
      items[tail] = item;
